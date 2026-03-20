@@ -1,46 +1,102 @@
-# Razer Opus X Control (BLE)
+# Razer Opus X Control
 
-Desktop GUI to control **Razer Opus X** headphones over Bluetooth Low Energy (BLE). Connect to the device, then switch audio modes like ANC and transparency.
+Desktop application for controlling Razer Opus X audio modes over Bluetooth Low Energy (BLE).
 
-## Features
+Приложение для Windows, которое управляет режимами Razer Opus X через Bluetooth Low Energy (BLE).
 
-- BLE discovery + auto-connect to a Razer headset
-- Mode switching:
-  - `off` (disabled)
-  - `anc` (active noise cancellation)
-  - `transparency`
-- Tray icon support on Windows (optional)
-- Live connection monitoring + auto-reconnect option
+## Key Features / Ключевые возможности
 
-## Requirements
+- BLE device discovery and automatic reconnect logic.
+- Переподключение и мониторинг состояния BLE-соединения.
+- Mode switching: `off`, `anc`, `transparency`.
+- Переключение режимов: `Выключено`, `Шумоподавление`, `Прозрачность`.
+- Optional Windows tray icon control.
+- Опциональное управление через трей Windows.
 
-- Windows 10/11
-- Python **3.10+**
-- Bluetooth enabled on the computer
-- Compatible Razer device advertising the expected BLE service characteristics
+## Screenshots / Скриншоты
 
-## Installation
+![Main Window](docs/screenshots/main_window.png)
 
-1. Create and activate a virtual environment (recommended)
-   - Example (PowerShell):
-     - `python -m venv .venv`
-     - `.venv\\Scripts\\Activate.ps1`
-2. Install dependencies:
-   - `pip install -r requirements.txt`
+![ico](docs/screenshots/razer.ico)
 
-## Usage
 
-1. Start the application:
-   - `python main.py`
-2. The GUI will attempt to connect automatically (if enabled).
-3. Once connected, use the mode buttons:
-   - “Шумоподавление” (ANC)
-   - “Прозрачность” (Transparency)
-   - “Выключено” (Off)
-4. (Optional) Enable “Трей Windows” to control modes from the system tray.
+## Requirements / Требования
 
-## Notes
+- Windows 10 or Windows 11.
+- Python 3.10+ (validated on Python 3.12).
+- Bluetooth adapter enabled on PC.
+- Compatible Razer device exposing expected BLE characteristics.
 
-- The application validates that the connected BLE device exposes the expected Razer characteristics before enabling controls.
-- If tray support is unavailable on your system, the app continues to run without it.
+## Installation / Установка
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+## Usage / Запуск
+
+```powershell
+python main.py
+```
+
+- The app starts with auto-connect enabled by default.
+- Приложение по умолчанию пытается подключиться автоматически.
+- Tray mode is optional and can be toggled in the UI.
+- Режим трея опционален и включается в интерфейсе.
+
+## Build Windows EXE / Сборка Windows .exe
+
+1. Install build dependencies:
+
+```powershell
+python -m pip install -r requirements-build.txt
+```
+
+2. Build one-folder executable:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1
+```
+
+3. Output executable:
+
+- `dist\Razer Opus X Control\Razer Opus X Control.exe`
+
+Optional: skip dependency installation inside the build script if your environment is already prepared:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build.ps1 -SkipDependencyInstall
+```
+
+## Project Structure / Структура проекта
+
+```text
+.
+├── main.py                        # GUI + BLE runtime logic
+├── razer.ico                      # Application icon
+├── razer_opus_x_control.spec      # Canonical PyInstaller spec
+├── requirements.txt               # Runtime dependencies
+├── requirements-build.txt         # Build-only dependencies
+├── scripts/
+│   └── build.ps1                  # Reproducible Windows build script
+└── README.md
+```
+
+## Known Limitations / Известные ограничения
+
+- Designed for Windows BLE stack only.
+- Требуется реальное BLE-устройство Razer для полной проверки функциональности.
+- No persistent settings storage yet (preferences reset between launches).
+- Сборка зависит от установленной среды Python и доступности зависимостей.
+
+## Roadmap / Планы развития
+
+- Add persistent settings (auto-connect, tray behavior, last known device).
+- Добавить хранение пользовательских настроек.
+- Add logging export and optional diagnostics panel.
+- Добавить экспорт логов и диагностическую панель.
+- Add CI workflow for lint/build checks on every push.
+- Добавить CI-проверки сборки и качества кода.
 

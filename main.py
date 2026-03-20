@@ -694,10 +694,18 @@ class App:
 
         try:
             if self.worker.loop and self.worker.loop.is_running():
+                disconnect_future = None
                 try:
-                    self.worker.run_coro(self.worker.disconnect())
+                    disconnect_future = self.worker.run_coro(self.worker.disconnect())
                 except Exception:
-                    pass
+                    disconnect_future = None
+
+                if disconnect_future is not None:
+                    try:
+                        disconnect_future.result(timeout=2.0)
+                    except Exception:
+                        pass
+
                 self.worker.loop.call_soon_threadsafe(self.worker.loop.stop)
         except Exception:
             pass

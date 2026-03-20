@@ -1,9 +1,29 @@
+# Virtual environments
 .venv/
-**/__pycache__/
-**/pycache/
-*.pyc
+venv/
+env/
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# Coverage and test artifacts
+.coverage
+.coverage.*
+htmlcov/
+
+# Packaging and distribution artifacts
 build/
 dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# IDE / editor files
 .idea/
 .vscode/
 
