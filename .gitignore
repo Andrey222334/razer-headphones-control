@@ -1,0 +1,14 @@
+.venv/
+**/pycache/
+*.pyc
+build/
+dist/
+.idea/
+.vscode/
+
+# OS / user files
+Thumbs.db
+.DS_Store
+ehthumbs.db
+Desktop.ini
+
